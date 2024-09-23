@@ -1,0 +1,46 @@
+﻿@model IEnumerable<FavoritesModel>
+
+@{
+    ViewData["Title"] = "Favorites List";
+}
+
+<p> 
+    <a asp-action="ClearFavorites">Clear</a>
+</p>
+
+@if (Model is not null && Model.Count() > 0 )
+{
+    string favoritesCount = Model.Count() == 1 ? "1 favorite found." : Model.Count() + " favorites found.";
+    <p class="bg-secondry text-dark"> @favoritesCount </p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.SupplierName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SupplierName)
+                    </td>
+
+                    <td>
+                        <a asp-action="RemoveFromFavorites" asp-route-supplierId="@item.SupplierId" asp-route-userId="@item.UserId">Remove</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="bg-secondry text-dark" >No favorites found. </p>
+}
+
+

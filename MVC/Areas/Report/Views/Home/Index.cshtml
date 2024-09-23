@@ -1,0 +1,51 @@
+﻿@model HomeIndexViewModel
+
+@{
+    ViewData["Title"] = "Report";
+}
+<partial name="_Filters" model="Model" />
+<hr />
+<partial name="_Report" model="Model.Report" />
+
+@section Scripts {
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+
+    <link href="~/lib/jquery-datetimepicker/jquery.datetimepicker.min.css" rel="stylesheet" />
+    <script src="~/lib/jquery-datetimepicker/jquery.datetimepicker.full.min.js"></script>
+
+    <link href="~/lib/select2/css/select2.min.css" rel="stylesheet" />
+    <script src="~/lib/select2/js/select2.min.js"></script>
+
+    <script>
+        $(function () {
+            $("#clear").click(function (event) {
+                event.preventDefault();//yönlendirme eventini iptal eder.(linkin yönlendirmesini devre dışı bırakmak için)
+                $(".textbox").val("");
+                $(".select2").val(null).trigger('change');
+                $("#form").submit();
+            });
+
+            $.datetimepicker.setLocale("tr");
+            $('.datetimepicker').datetimepicker({
+                timepicker: false,
+                format: 'd.m.Y',
+                i18n: {
+                    tr: {
+                        months: [
+                            'Ocak', 'Şubat', 'Mart', 'Nisan',
+                            'Mayıs', 'Haziran', 'Temmuz', 'Ağustos',
+                            'Eylül', 'Ekim', 'Kasım', 'Aralık'
+                        ],
+                        dayOfWeek: [
+                            "Pzt", "Sal", "Çar",
+                            "Per", "Cum", "Cmt", "Paz"
+                        ]
+                    }
+                }
+            });
+
+            $(".select2").select2();
+
+        });
+    </script>
+}

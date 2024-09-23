@@ -1,0 +1,60 @@
+﻿@model HomeIndexViewModel
+
+<form asp-action="Index" data-ajax="true" data-ajax-update="#report" data-ajax-mode="replace" id="form">
+    <div class="row mb-1">
+        @*  <div class="col-2">
+        @Html.DisplayNameFor(model => model.Filter.CategoryId)
+        </div>
+        <div class="col-4">
+        @Html.DropDownListFor(model => model.Filter.CategoryId,Model.Categories,"seçiniz" new { @class = "form-select select2", id ="categories" })
+        </div> *@
+        <div class="col-2">
+            <label asp-for="Filter.CategoryId"></label>
+        </div>
+        <div class="col-4">
+            <select asp-for="Filter.CategoryId" asp-items="Model.Categories" class="form-select select2">
+            <option value="">-- Select --</option>
+            </select>
+        </div>
+
+        @* <div class="col-2">
+        @Html.DisplayNameFor(model => model.Filter.SupplierId)
+        </div>
+        <div class="col-4">
+        @Html.DropDownListFor(model => model.Filter.SupplierId,Model.Suppliers,"seçiniz" ,new { @class = "form-select select2", id="suppliers"})
+        </div> *@
+        <div class="col-2">
+            <label asp-for="Filter.SupplierId"></label>
+        </div>
+        <div class="col-4">
+            <select multiple asp-for="Filter.SupplierId" asp-items="Model.Suppliers" class="form-select select2"></select>
+            <option value=""></option>
+        </div>
+        <div class="col-2">
+            @Html.DisplayNameFor(model => model.Filter.ProductName)
+        </div>
+        <div class="col-4">
+            @Html.TextBoxFor(model => model.Filter.ProductName, new { @class = "form-control textbox", placeholder = "Enter Product Name.." })
+        </div>
+        <div class="col-2">
+            @Html.DisplayNameFor(model => model.Filter.DateBegin)
+        </div>
+        <div class="col-4">
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.Filter.DateBegin, new { @class = "form-control textbox datetimepicker", placeholder = "Date Begin"/* , id="dtp" */})
+                <span class="input-group-text"> - </span>
+                @Html.TextBoxFor(model => model.Filter.DateEnd, new { @class = "form-control textbox datetimepicker", placeholder = "Date End" /* , id="dtp" */})
+                @*<input asp-for="DateBegin" class="form-control textbox" type="text", placeholder="Create Date Begin"/>*@
+                @*<input asp-for="DateEnd" class="form-control textbox" type="text" ,placeholder="Create Date End"/>*@
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-2 col-10">
+            <button type="submit" class="btn btn-outline-success">Search</button>
+            
+            @* @Html.ActionLink("Clear", "Index", "Home", null, new {@class = "btn btn-outline-success", id="clear"}) *@
+            <a href="" class="btn btn-outline-success" id="clear">Clear</a>
+        </div>
+    </div>
+</form>

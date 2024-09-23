@@ -1,0 +1,158 @@
+﻿@model IEnumerable<ProductModel>
+
+@{
+    ViewData["Title"] = "Product List";
+}
+
+<hr />
+
+@if (TempData["Message"] is not null)
+{
+    <p class="text-success">
+        @TempData["Message"]
+    </p>
+}
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create" style="text-decoration: underline;">Create New Product</a>
+    </p>
+}
+
+<table id="products" class="display" style="width:100%;">
+
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            @*  <th>
+            @Html.DisplayNameFor(model => model.Description)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.StockAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LotNoDisplay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPriceDisplay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryNameDisplay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierNameDisplay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImgSrcDisplay)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StockAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LotNoDisplay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPriceDisplay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryNameDisplay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SupplierNameDisplay)
+                </td>
+                <td>
+                    @if (item.ImgSrcDisplay is not null)
+                    {
+                        <img src="@item.ImgSrcDisplay" class="img-thumbnail" />
+                    }
+                    else
+                    {
+                        <i class="fa-regular fa-image" title="No Image"></i>
+                    }
+                </td>
+
+                <td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id" style="text-decoration: underline;">Edit</a>
+                        @: &nbsp;| &nbsp;
+
+
+                        <a href="#" onclick="deleteProduct(@item.Id);" style="text-decoration: underline;">Delete</a>
+                        @: &nbsp;|&nbsp;
+                    } 
+
+                    @* <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> *@
+
+                    <!--
+                        AlertifyJS Üzerinden Kayıt Silme:
+                        Silme işlemi için link'i Tag Helper olarak değil onclick event'ini tanımlayacağımız bir a HTML tag'i olarak oluşturuyoruz.
+                    -->
+                    <a asp-action="Details" asp-route-id="@item.Id" style="text-decoration: underline;">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts {
+
+    @*
+        DataTables gibi Javascript - CSS kütüphaneleri wwwroot -> lib seçilip fare ile sağ tıklanarak Add -> Client-Side Library
+        tıklanıp örneğin DataTables için datatables araması yapılıp çıkan sonuç seçilerek ve DataTables web sitesi (https://datatables.net)
+        üzerinden hem kütüphane adı yazımı hem de versiyonu ile doğru kütüphane olduğu kontrol edilerek projeye eklenebilir.
+        DataTables kütüphanesi tüm view'larda kullanılmayacağı için _Layout view'ında eklemek yerine
+        sadece ürün listeleme sayfasında kullanılacağı Views -> Products -> Index view'ında Scripts section'ına
+        css ve js kütüphaneleri referansları eklenmelidir ve HTML table'ı DataTable'a dönüştürecek jQuery kodları yazılmalıdır.
+    *@
+    <link href="~/lib/datatables/css/jquery.datatables.min.css" rel="stylesheet" />
+    <script src="~/lib/datatables/js/jquery.datatables.min.js"></script>
+
+    <script>
+        $(function () { // jQuery fonksiyonu: sayfa yüklendikten sonra
+            $("#products").DataTable();// id'si products olan table'ı data table'a dönüştür
+        });
+    </script>
+
+
+    @*
+        AlertifyJS Üzerinden Kayıt Silme:
+        Ürün silmek için ilgili mağazanın Delete link'i tıklandığında mağazanın id'sini aşağıdaki deleteProduct fonksiyonuna
+        parametre olarak gönderiyoruz ve AlertifyJS (https://alertifyjs.com) üzerinden bir konfirmasyon pop up'ının çıkmasını sağlıyoruz.
+        Eğer kullanıcı evet derse o zaman Product controller'ındaki Delete get action'ına silinmek istenen mağazanın id'sini route değeri olarak ekleyip
+        Javascript'te bir sayfanın yönlendirilmesini sağlayan window.location.href'e atıyoruz.
+    *@
+
+
+    <link href="~/lib/AlertifyJS/css/alertify.min.css" rel="stylesheet" />
+    <script src="~/lib/AlertifyJS/alertify.min.js"></script>
+
+    <script>
+        function deleteProduct(id) {
+            alertify.confirm(
+                "Warning!", // pop up'ın başlığı
+                "Are you sure you want to delete this product?", // pop up'taki mesaj
+                function () { // kullanıcı Yes butonuna tıkladığında çalışacak fonksiyon
+                    window.location.href = "/Products/Delete/" + id;
+                    // silme işlemi için yönlendirdiğimiz Products controller'ın Delete get action'ı
+                },
+                function () { // kullanıcı No butonuna tıkladığında çalışacak fonksiyon
+
+                }
+            ).set('label', { ok: 'Yes', cancel: 'No' }); // pop up'taki butonların Yes ve No şeklinde özelleştirilmeleri
+        }
+    </script>
+}

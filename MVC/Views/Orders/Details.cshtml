@@ -1,0 +1,56 @@
+﻿@model OrderModel
+
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+@* <h1>Details</h1> *@
+
+<div>
+    @* <h4>Order</h4> *@
+    <hr />
+    <dl class="row">
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.ProductNameDisplay)
+        </dt>
+        <dd class="col-10">
+            @Html.Raw(Model.ProductNameDisplay)
+        </dd>
+        <dt class = "col-2">
+            @Html.DisplayNameFor(model => model.Situation)
+        </dt>
+        <dd class = "col-10">
+            @Html.DisplayFor(model => model.Situation)
+        </dd>
+        <dt class = "col-2">
+            @Html.DisplayNameFor(model => model.DateDisplay)
+        </dt>
+        <dd class = "col-10">
+            @Html.DisplayFor(model => model.DateDisplay)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-2">
+            @Html.DisplayNameFor(model => model.UserNameDisplay)
+        </dt>
+        <dd class = "col-10">
+            @Html.DisplayFor(model => model.UserNameDisplay)
+        </dd>
+        
+        @* <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Guid)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Guid) *@
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> &nbsp;|&nbsp;
+    <p><a asp-action="Index">Back to Order List</a></p>
+</div>

@@ -1,0 +1,47 @@
+﻿@model SupplierModel
+
+@{
+    ViewData["Title"] = "Create New Supplier";
+}
+
+@* <h1>Create</h1> *@
+
+@* <h4>Supplier</h4> *@
+<hr />
+<div class="row">
+    <div class="col-12" style="width: 50%;margin: 0 auto;">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-5">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" placeholder="Enter name.." />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="col-5">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter description.." /></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="col-5">
+                <label asp-for="Address" class="control-label"></label>
+                <textarea asp-for="Address" class="form-control" placeholder="Enter address.." /></textarea>
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="col-5">
+                <label asp-for="ContactNumber" class="control-label"></label>
+                <input asp-for="ContactNumber" class="form-control" placeholder="Enter contact number.. " />
+                <span asp-validation-for="ContactNumber" class="text-danger"></span>
+            </div>
+            <p>
+                <div class="col-5">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                &nbsp;&nbsp;
+                <button type="reset" class="btn btn-outline-primary">Reset</button>
+                &nbsp;&nbsp;
+                    <p><a asp-action="Index" style="text-decoration: underline;">Back to Supplier List</a></p>
+            </div>
+            </p>
+        </form>
+    </div>
+</div>
+

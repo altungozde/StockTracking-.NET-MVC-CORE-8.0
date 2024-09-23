@@ -1,0 +1,41 @@
+﻿@model CategoryModel
+
+@{
+    ViewData["Title"] = "Edit Category";
+}
+<hr />
+<div class="row">
+    <div class="col-12" style="width: 50%;margin: 0 auto";>
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-5">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" placeholder="Enter name.." />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="col-5">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter description.." /></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Id" />
+           @*  <div class="form-group">
+                <label asp-for="Guid" class="control-label"></label>
+                <input asp-for="Guid" class="form-control" />
+                <span asp-validation-for="Guid" class="text-danger"></span>
+            </div> *@
+            <p>
+                <div class="col-5">
+                    <input type="submit" value="Save" class="btn btn-primary" /> &nbsp;&nbsp;
+                    <button type="reset" class="btn btn-outline-primary">Reset</button> &nbsp;&nbsp;
+                    <p><a asp-action="Index" style="text-decoration: underline;">Back to Category List</a></p>
+                </div>
+            </p>
+        </form>
+    </div>
+</div>
+
+<div>
+    @* <a asp-action="Index">Back to List</a> *@
+</div>
+

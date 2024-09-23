@@ -1,0 +1,77 @@
+﻿@model ProductModel
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+<div class="row">
+    <div class="col-12" style="width: 50%;margin: 0 auto;">
+        @* sayfayı ortalaması için *@
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-5">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" placeholder="Enter name.." />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="col-5">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter description.." /></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="col-5">
+                <label asp-for="StockAmount" class="control-label"></label>
+                <input asp-for="StockAmount" class="form-control" placeholder="Enter stock amount.." />
+                <span asp-validation-for="StockAmount" class="text-danger"></span>
+            </div>
+            <div class="col-5">
+                <label asp-for="LotNo" class="control-label"></label>
+                <input asp-for="LotNo" class="form-control" placeholder="Enter lot no.." />
+                <span asp-validation-for="LotNo" class="text-danger"></span>
+            </div>
+            <div class="col-5">
+                <label asp-for="UnitPrice" class="control-label"></label>
+                <input asp-for="UnitPrice" class="form-control" placeholder="Enter unit price.." />
+                <span asp-validation-for="UnitPrice" class="text-danger"></span>
+            </div>
+            <div class="col-5">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select multiple asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="col-5">
+                <label asp-for="SupplierId" class="control-label"></label>
+                <select multiple asp-for="SupplierId" class="form-control" asp-items="ViewBag.SupplierId"></select>
+                <span asp-validation-for="SupplierId" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Id" />
+            <div class="col-5">
+                <label asp-for="Image" class="control-label"></label>
+                <div>
+                    @if (Model.ImgSrcDisplay is not null)
+                    {
+                        <img src="@Model.ImgSrcDisplay" class="img-fluid"/>
+                    }
+                    else
+                    {
+                        <i class="fa-regular fa-image" title="No Image"></i>
+                    }
+                </div>
+                <div>
+                    <input type="file" accept="@AppSettings.AcceptedImageExtensions" />
+                </div>
+                <div class="col-5">
+                    <a asp-action="DeleteImage" style="text-decoration: underline;" asp-route-id="@Model.Id">Delete Image</a>
+                </div>
+            </div>
+            <input type="hidden" asp-for="Id" />
+            <p>
+                <div class="col-5">
+                    <input type="submit" value="Save" class="btn btn-primary" /> &nbsp;&nbsp;
+                    <button type="reset" class="btn btn-outline-primary">Reset</button> &nbsp;&nbsp;
+                    <p><a asp-action="Index" style="text-decoration: underline;">Back to Product List</a></p>
+                </div>
+            </p>
+        </form>
+    </div>
+</div>
+
